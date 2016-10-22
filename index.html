@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<title>Sanstar</title>
+<link rel="stylesheet" href="Assets/jquery-ui.css">
+  <!-- <link rel="stylesheet" href="//resources/demos/style.css">
+  --> <script src="Assets/jquery-1.12.4.js"></script>
+  <script src="Assets/jquery-ui.js"></script>
+  <script src="Assets/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+<!--<link rel="stylesheet" href="Assets/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+<style type="text/css">
+
+@media print {
+  * { background: transparent !important; color: black !important; text-shadow: none !important; filter:none !important; -ms-filter: none !important; } /* Black prints faster: h5bp.com/s */
+  a, a:visited { text-decoration: underline; }
+  a[href]:after { content: " (" attr(href) ")"; }
+  abbr[title]:after { content: " (" attr(title) ")"; }
+  .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; }  /* Don't show links for images, or javascript/internal links */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* h5bp.com/t */
+  tr, img { page-break-inside: avoid; }
+  img { max-width: 100% !important; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3 { page-break-after: avoid; }
+}
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	margin:20px;
+	padding:0px;
+}
+  input{
+	  width:230px;
+  }
+  
+  .jumbotron input{
+	  border:0px solid #ccc;
+	  font-size:20px;
+	  padding:10px;
+	  border-radius:5px;
+  }
+  
+  .jumbotron td{
+	  font-size:20px;
+	  font-weight:bold;
+  }
+  
+
+
+.btn{
+	font-family:Arial, Helvetica, sans-serif;
+	background:#666;
+	line-height:normal;
+	color:#fff;
+	font-size:14px;
+	border:none;
+	border-radius:5px;
+	padding:10px 15px;
+	
+}
+
+.days{
+	font-size:500px !important;
+	padding:0px;
+	margin:0px;
+	font-weight:bold;
+}
+
+.day{
+	font-size:60px !important;
+	padding:0px;
+	margin:0px;
+	font-weight:bold;
+
+}
+
+.input2{
+	width:600px;
+	margin:7px 0px;
+	border:1px solid #fff;
+}
+
+.input3{
+	  border:1px solid #ccc !important;
+	  font-size:20px;
+	  padding:10px;
+	  border-radius:5px;
+}
+.border{
+	border:1px solid #ccc;
+	padding:4px;
+	border-collapse:collapse;
+}
+
+</style>
+  <script>
+  $( function() {
+    $( "#datepicker" ).datepicker();
+     $( "#datepicker1" ).datepicker();  
+  } );
+function parseDate(str) {
+    var mdy = str.split('/');
+    return new Date(mdy[2], mdy[0]-1, mdy[1]);
+}
+
+function daydiff(first, second) {
+    return Math.round((second-first)/(1000*60*60*24));
+}
+function myFunction() {
+    //this.hide();
+$(".result").html('');
+$("#main").hide();
+   var diff=daydiff(parseDate($('#datepicker').val()),parseDate($('#datepicker1').val()));
+    for (var i = diff; i > 0; i--) {
+      $(".result").append("<table class='jumbotron' style='page-break-after:always;align:center' width='100%' cellspacing='0' cellpadding='0'><tr><td class='border'><b>Project:</b></td><td colspan='3' class='border'> <input type='text' id='pname' value="+$('#pname').val()+" class='input2'></td></tr><tr><td class='border'><b>Start Date:</b></td><td class='border'> <input type='text' id='datepicker' value="+$('#datepicker').val()+"></td><td class='border'>End Date:</td><td class='border'> <input type='text' id='datepicker1' value="+$('#datepicker1').val()+"><td></tr><tr><td colspan='2' class='day'>Days To Go.</td><td class='days' align='center' colspan='2'>"+i +"</td></tr> </table>");        
+    }
+    window.print();
+}
+  </script>
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class='jumbotron' id="main">
+  <tr>
+    <td width="16%">Project:</td>
+    <td width="84%"><input type="text" id="pname" class="input3"></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>Start Date:</td>
+    <td><input type='text' id='datepicker' class="input3"></td>
+  </tr>
+  
+    <tr>
+      <td>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+    <td>End Date:</td>
+    <td><input type='text' id='datepicker1' class="input3"></td>
+  </tr>
+</table>
+
+<div class="result jumbotron"> </div>
+<br><br>
+<button class="btn btn-primary btn-lg" onclick="myFunction()">Print this page</button>
+
+
+</body>
+</html>
+
+
