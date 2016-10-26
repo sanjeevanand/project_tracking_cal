@@ -107,12 +107,12 @@ function daydiff(first, second) {
     return Math.round((second-first)/(1000*60*60*24));
 }
 function myFunction() {
-    //this.hide();
+var project=$('#pname').val();
 $(".result").html('');
 $("#main").hide();
    var diff=daydiff(parseDate($('#datepicker').val()),parseDate($('#datepicker1').val()));
     for (var i = diff; i > 0; i--) {
-      $(".result").append("<table class='jumbotron' style='page-break-after:always;align:center' width='100%' cellspacing='0' cellpadding='0'><tr><td class='border'><b>Project:</b></td><td colspan='3' class='border'> <input type='text' id='pname' value="+$('#pname').val()+" class='input2'></td></tr><tr><td class='border'><b>Start Date:</b></td><td class='border'> <input type='text' id='datepicker' value="+$('#datepicker').val()+"></td><td class='border'>End Date:</td><td class='border'> <input type='text' id='datepicker1' value="+$('#datepicker1').val()+"><td></tr><tr><td colspan='2' class='day'>Days To Go.</td><td class='days' align='center' colspan='2'>"+i +"</td></tr> </table>");        
+      $(".result").append("<table class='jumbotron' style='page-break-after:always;align:center' width='100%' cellspacing='0' cellpadding='0'><tr><td class='border'><b>Project:</b></td><td colspan='3' class='border'> <input type='text' id='pname' value='"+project+"'' class='input2'></td></tr><tr><td class='border'><b>Start Date:</b></td><td class='border'> <input type='text' id='datepicker' value="+$('#datepicker').val()+"></td><td class='border'>End Date:</td><td class='border'> <input type='text' id='datepicker1' value="+$('#datepicker1').val()+"><td></tr><tr><td colspan='2' class='day'>Days To Go.</td><td class='days' align='center' colspan='2'>"+i +"</td></tr> </table>");        
     }
     window.print();
 }
