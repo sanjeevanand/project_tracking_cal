@@ -106,13 +106,48 @@ function parseDate(str) {
 function daydiff(first, second) {
     return Math.round((second-first)/(1000*60*60*24));
 }
+
+function getDates(from_date, to_date) {
+  var current_date = new Date(from_date);
+  var end_date     = new Date(to_date);
+
+  var getTimeDiff = Math.abs(current_date.getTime() - end_date.getTime());
+  var date_range = Math.ceil(getTimeDiff / (1000 * 3600 * 24)) + 1 ;
+
+  var weekday = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+  var months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+  var dates = new Array();
+
+  for (var i = 0; i <= date_range; i++) {
+     var getDate, getMonth = '';
+
+     if(current_date.getDate() < 10) { getDate = ('0'+ current_date.getDate());}
+     else{getDate = current_date.getDate();}
+
+    if(current_date.getMonth() < 9) { getMonth = ('0'+ (current_date.getMonth()+1));}
+    else{getMonth = current_date.getMonth();}
+    var date_list = {date:getDate+"-"+getMonth+"-"+current_date.getFullYear()};//{day: getDate, month: getMonth, year: current_date.getFullYear()};
+    var row_date = {day: getDate, month: getMonth, year: current_date.getFullYear()};
+    var fmt_date = {weekDay: weekday[current_date.getDay()], date: getDate, month: months[current_date.getMonth()]};
+    var is_weekend = false;
+    if (current_date.getDay() == 0 || current_date.getDay() == 6) {
+        is_weekend = true;
+    }
+  //  dates.push({row_date: row_date, fmt_date: fmt_date, is_weekend: is_weekend});
+dates.push(date_list);
+    current_date.setDate(current_date.getDate() + 1);
+ }
+ return dates;
+}
 function myFunction() {
 var project=$('#pname').val();
 $(".result").html('');
 $("#main").hide();
+   var dates = getDates(parseDate($('#datepicker').val()), parseDate($('#datepicker1').val()));
    var diff=daydiff(parseDate($('#datepicker').val()),parseDate($('#datepicker1').val()));
+   var count=1; 
     for (var i = diff; i > 0; i--) {
-      $(".result").append("<table class='jumbotron' style='page-break-after:always;align:center' width='100%' cellspacing='0' cellpadding='0'><tr><td class='border'><b>Project:</b></td><td colspan='3' class='border'> <input type='text' id='pname' value='"+project+"'' class='input2'></td></tr><tr><td class='border'><b>Start Date:</b></td><td class='border'> <input type='text' id='datepicker' value="+$('#datepicker').val()+"></td><td class='border'>End Date:</td><td class='border'> <input type='text' id='datepicker1' value="+$('#datepicker1').val()+"><td></tr><tr><td colspan='2' class='day'>Days To Go.</td><td class='days' align='center' colspan='2'>"+i +"</td></tr> </table>");        
+      $(".result").append("<table class='jumbotron' style='page-break-after:always;align:center' width='100%' cellspacing='0' cellpadding='0'><tr><td class='border'><b>Project:</b></td><td colspan='3' class='border'> <input type='text' id='pname' value='"+project+"'' class='input2'></td></tr><tr><td class='border'><b>Start Date:</b></td><td class='border'> <input type='text' id='datepicker' value="+$('#datepicker').val()+"></td><td class='border'>End Date:</td><td class='border'> <input type='text' id='datepicker1' value="+$('#datepicker1').val()+"><td></tr><tr><td colspan='2' class='day'>Days To Go.</td><td class='days' align='center' colspan='2'>"+i +"</td></tr><tr><td>"+dates[count++].date+"</td></tr> </table>");        
     }
     window.print();
 }
