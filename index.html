@@ -125,7 +125,7 @@ function getDates(from_date, to_date) {
      else{getDate = current_date.getDate();}
 
     if(current_date.getMonth() < 9) { getMonth = ('0'+ (current_date.getMonth()+1));}
-    else{getMonth = current_date.getMonth();}
+    else{getMonth = current_date.getMonth()+1;}
     var date_list = {date:getDate+"-"+getMonth+"-"+current_date.getFullYear()};//{day: getDate, month: getMonth, year: current_date.getFullYear()};
     var row_date = {day: getDate, month: getMonth, year: current_date.getFullYear()};
     var fmt_date = {weekDay: weekday[current_date.getDay()], date: getDate, month: months[current_date.getMonth()]};
@@ -138,7 +138,7 @@ dates.push(date_list);
     current_date.setDate(current_date.getDate() + 1);
  }
  return dates;
-}
+}//201610182642
 function myFunction() {
 var project=$('#pname').val();
 $(".result").html('');
